@@ -15,50 +15,57 @@ char		*ft_sbtlejoin(char *old, char *ajout)
 	return (new);
 }
 
-t_word  stock(char *str)
+char  **stock(char *str)
 {
     int i = 0;
     int j = 0;
     int k = 0;
     int l = 0;
     int leng = 0; 
+    int len = 0; 
 
-    t_word *tmp;
+    char tmpid[100][100];
+    char tmptxt[100][100];
     t_word *word;
-    /*while (str[i])
+    while (str[i])
     {
         if (str[i] == '\n')
             leng++;
+        i++;
     }
     i = 0;
             printf("%d\n", leng);
-    word->id = (char**)malloc(sizeof(char*) * leng);
-    word->txt = (char**)malloc(sizeof(char*) * leng);*/
+    **tmpid = malloc(sizeof(char*) * leng);
+    **tmptxt = (char**)malloc(sizeof(char*) * leng);
     while (str[i])
     {
+        printf("zozo");
+            tmpid[j] = (char*)malloc(sizeof(char) * 100);
             while (str[i] >= '0' && str[i] <= '9')
             {
-                tmp->id[j][k] = str[i];
+                tmpid[j][k] = str[i];
                 k++;
                 i++;
             }
-            word->id[j] = (char*)malloc(sizeof(char) * k);
-            word->id[j] = tmp->id[j];
+            //word->id[j] = (char*)malloc(sizeof(char) * k);
+            //word->id[j] = tmpid;
             k = 0;
             while(str[i] == ' ' || str[i] == '\t' || str[i] == ':')
             i++;
+            tmptxt[j] = (char*)malloc(sizeof(char) * 100);
             while (str[i] != '\n')
             {
-                tmp->txt[j][l] = str[i];
+                tmptxt[j][l] = str[i];
                 l++;
                 i++;
             }
-            word->txt[j] = (char*)malloc(sizeof(char) * l);
-            word->txt[j] = tmp->txt[j];
+            //word->txt[j] = (char*)malloc(sizeof(char) * l);
+            //word->txt[j] = tmptxt;
             l = 0;
-            j++;  
+            j++; 
+            i++;
     }
-    return (*word);
+    return (**tmptxt);
 }
 
 int main(int argc, char **argv) {
