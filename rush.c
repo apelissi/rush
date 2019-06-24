@@ -58,6 +58,31 @@ void	dizaine(char c)
 		write(1, "ninety", 6);
 }
 
+void	dix(char c)
+{
+	if (c == '0')
+		write(1, "ten", 3);
+	if (c == '1')
+		write(1, "eleven", 6);
+	if (c == '2')
+		write(1, "twelve", 6);
+	if (c == '3')
+		write(1, "thirteen", 8);
+	if (c == '4')
+		write(1, "fourteen", 8);
+	if (c == '5')
+		write(1, "fifteen", 7);
+	if (c == '6')
+		write(1, "sixteen", 7);
+	if (c == '7')
+		write(1, "seventeen", 9);
+	if (c == '8')
+		write(1, "eighteen", 8);
+	if (c == '9')
+		write(1, "nineteen", 8);
+}
+
+
 void	how_big(int big)
 {
 	if (big == 1)
@@ -72,6 +97,7 @@ int	main(int ac, char **av)
 	int	size;
 	int	big;
 	int 	i;
+	int	nf;
 
 	if (ac != 2)
 		return (write(1, "mv nb d'arguments\n", 18));
@@ -79,28 +105,44 @@ int	main(int ac, char **av)
 		return (write(1, "pas un int\n", 11));
 	big = (size - 1) / 3;
 	i = 0;
+	nf = 0;
 	while (i < size)
 	{
 		if ((size - i) % 3 == 0 && av[1][i] != '0')
 		{
+			if (nf)
+				write(1, " ", 1);
 			unit(av[1][i]);
 			write(1, " ", 1);
 			write (1, "hundred", 7);
-			write(1, " ", 1);
+			nf++;;
 		}	
-		if ((size - i) % 3 == 2 && av[1][i] != '0')
+		else if ((size - i) % 3 == 2 && av[1][i] != '0' && av[1][i] != '1')
 		{
+			if (nf)
+				write(1, " ", 1);
 			dizaine(av[1][i]);
-			write(1, " ", 1);
+			nf++;
+		}
+		else if ((size - i) % 3 == 1 && av[1][i - 1] && av[1][i - 1]== '1')
+		{
+			if (nf)
+				write(1, " ", 1);
+			dix(av[1][i]);
+			nf++;
+		}
+		else if ((size - i) % 3 == 1 && av[1][i - 1] != '1')
+		{
+			if (nf)
+				write(1, " ", 1);
+			unit(av[1][i]);
+			nf++;
 		}
 		if ((size - i) % 3 == 1)
 		{
-			unit(av[1][i]);
-			if (av[1][i] != '0' && i != size - 1)
-				write(1, " ", 1);
-			how_big(big);
 			if (big)
 				write(1, " ", 1);
+			how_big(big);
 			big--;
 		}
 		i++;
